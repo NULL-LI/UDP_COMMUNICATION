@@ -3,7 +3,7 @@
 #include "usart.h"
 #include "led.h"
 #include "key.h"
-#include "lcd.h"
+//#include "lcd.h"
 #include "malloc.h"
 #include "stdio.h"
 #include "string.h" 
@@ -42,13 +42,13 @@ void udp_demo_set_remoteip(void)
 	u8 *tbuf;
 	u16 xoff;
 	u8 key;
-	LCD_Clear(WHITE);
-	POINT_COLOR=RED;
-	LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
-	LCD_ShowString(30,50,200,16,16,"UDP Test");
-	LCD_ShowString(30,70,200,16,16,"Remote IP Set");  
-	LCD_ShowString(30,90,200,16,16,"KEY0:+  KEY2:-");  
-	LCD_ShowString(30,110,200,16,16,"KEY_UP:OK");  
+//	LCD_Clear(WHITE);
+//	POINT_COLOR=RED;
+//	LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
+//	LCD_ShowString(30,50,200,16,16,"UDP Test");
+//	LCD_ShowString(30,70,200,16,16,"Remote IP Set");  
+//	LCD_ShowString(30,90,200,16,16,"KEY0:+  KEY2:-");  
+//	LCD_ShowString(30,110,200,16,16,"KEY_UP:OK");  
 	tbuf=mymalloc(SRAMIN,100);	//申请内存
 	if(tbuf==NULL)return;
 	//前三个IP保持和DHCP得到的IP一致
@@ -56,10 +56,10 @@ void udp_demo_set_remoteip(void)
 	lwipdev.remoteip[1]=lwipdev.ip[1];
 	lwipdev.remoteip[2]=lwipdev.ip[2]; 
 	sprintf((char*)tbuf,"Remote IP:%d.%d.%d.",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2]);//远端IP
-	LCD_ShowString(30,150,210,16,16,tbuf); 
-	POINT_COLOR=BLUE;
+//	LCD_ShowString(30,150,210,16,16,tbuf); 
+//	POINT_COLOR=BLUE;
 	xoff=strlen((char*)tbuf)*8+30;
-	LCD_ShowxNum(xoff,150,lwipdev.remoteip[3],3,16,0); 
+//	LCD_ShowxNum(xoff,150,lwipdev.remoteip[3],3,16,0); 
 	while(1)
 	{
 		key=KEY_Scan(0);
@@ -68,7 +68,7 @@ void udp_demo_set_remoteip(void)
 		{
 			if(key==KEY0_PRES)lwipdev.remoteip[3]++;//IP增加
 			if(key==KEY2_PRES)lwipdev.remoteip[3]--;//IP减少
-			LCD_ShowxNum(xoff,150,lwipdev.remoteip[3],3,16,0X80);//显示新IP
+//			LCD_ShowxNum(xoff,150,lwipdev.remoteip[3],3,16,0X80);//显示新IP
 		}
 	}
 	myfree(SRAMIN,tbuf); 
@@ -87,23 +87,23 @@ void udp_demo_test(void)
 	u8 t=0; 
  	
 	udp_demo_set_remoteip();//先选择IP
-	LCD_Clear(WHITE);	//清屏
-	POINT_COLOR=RED; 	//红色字体
-	LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
-	LCD_ShowString(30,50,200,16,16,"UDP Test");
-	LCD_ShowString(30,70,200,16,16,"ATOM@ALIENTEK");  
-	LCD_ShowString(30,90,200,16,16,"KEY0:Send data");  
-	LCD_ShowString(30,110,200,16,16,"KEY_UP:Quit");  
+//	LCD_Clear(WHITE);	//清屏
+//	POINT_COLOR=RED; 	//红色字体
+//	LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
+//	LCD_ShowString(30,50,200,16,16,"UDP Test");
+//	LCD_ShowString(30,70,200,16,16,"ATOM@ALIENTEK");  
+//	LCD_ShowString(30,90,200,16,16,"KEY0:Send data");  
+//	LCD_ShowString(30,110,200,16,16,"KEY_UP:Quit");  
 	tbuf=mymalloc(SRAMIN,200);	//申请内存
 	if(tbuf==NULL)return ;		//内存申请失败了,直接退出
 	sprintf((char*)tbuf,"Local IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//服务器IP
-	LCD_ShowString(30,130,210,16,16,tbuf);  
+//	LCD_ShowString(30,130,210,16,16,tbuf);  
 	sprintf((char*)tbuf,"Remote IP:%d.%d.%d.%d",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2],lwipdev.remoteip[3]);//远端IP
-	LCD_ShowString(30,150,210,16,16,tbuf);  
+//	LCD_ShowString(30,150,210,16,16,tbuf);  
 	sprintf((char*)tbuf,"Remote Port:%d",UDP_DEMO_PORT);//客户端端口号
-	LCD_ShowString(30,170,210,16,16,tbuf);
-	POINT_COLOR=BLUE;
-	LCD_ShowString(30,190,210,16,16,"STATUS:Disconnected"); 
+//	LCD_ShowString(30,170,210,16,16,tbuf);
+//	POINT_COLOR=BLUE;
+//	LCD_ShowString(30,190,210,16,16,"STATUS:Disconnected"); 
 	udppcb=udp_new();
 	if(udppcb)//创建成功
 	{ 
@@ -115,10 +115,10 @@ void udp_demo_test(void)
 			if(err==ERR_OK)	//绑定完成
 			{
 				udp_recv(udppcb,udp_demo_recv,NULL);//注册接收回调函数 
-				LCD_ShowString(30,190,210,16,16,"STATUS:Connected   ");//标记连接上了(UDP是非可靠连接,这里仅仅表示本地UDP已经准备好)
-				POINT_COLOR=RED;
-				LCD_ShowString(30,210,lcddev.width-30,lcddev.height-190,16,"Receive Data:");//提示消息		
-				POINT_COLOR=BLUE;//蓝色字体
+//				LCD_ShowString(30,190,210,16,16,"STATUS:Connected   ");//标记连接上了(UDP是非可靠连接,这里仅仅表示本地UDP已经准备好)
+//				POINT_COLOR=RED;
+//				LCD_ShowString(30,210,lcddev.width-30,lcddev.height-190,16,"Receive Data:");//提示消息		
+//				POINT_COLOR=BLUE;//蓝色字体
 			}else res=1;
 		}else res=1;		
 	}else res=1;
@@ -132,8 +132,8 @@ void udp_demo_test(void)
 		}
 		if(udp_demo_flag&1<<6)//是否收到数据?
 		{
-			LCD_Fill(30,230,lcddev.width-1,lcddev.height-1,WHITE);//清上一次数据
-			LCD_ShowString(30,230,lcddev.width-30,lcddev.height-230,16,udp_demo_recvbuf);//显示接收到的数据			
+//			LCD_Fill(30,230,lcddev.width-1,lcddev.height-1,WHITE);//清上一次数据
+//			LCD_ShowString(30,230,lcddev.width-30,lcddev.height-230,16,udp_demo_recvbuf);//显示接收到的数据			
 			udp_demo_flag&=~(1<<6);//标记数据已经被处理了.
 		} 
 		lwip_periodic_handle();

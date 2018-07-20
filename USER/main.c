@@ -7,7 +7,7 @@
 #include "LAN8720.h"
 #include "usmart.h"
 #include "timer.h"
-#include "lcd.h"
+//#include "lcd.h"
 #include "sram.h"
 #include "rtc.h"
 #include "beep.h"
@@ -18,52 +18,52 @@
 #include "lwip/netif.h"
 #include "lwip_comm.h"
 #include "lwipopts.h"
-#include "tcp_client_demo.h"
-#include "tcp_client_demo.h"
-#include "tcp_server_demo.h"
+//#include "tcp_client_demo.h"
+//#include "tcp_client_demo.h"
+//#include "tcp_server_demo.h"
 #include "udp_demo.h"
 #include "httpd.h"
 
-//ALIENTEK Ì½Ë÷ÕßSTM32F407¿ª·¢°å ÊµÑé55
-//LWIPÍøÂçÍ¨ÐÅ×ÛºÏÊµÑé-¿âº¯Êý°æ±¾
-//¼¼ÊõÖ§³Ö£ºwww.openedv.com
-//ÌÔ±¦µêÆÌ£ºhttp://eboard.taobao.com  
-//¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾  
-//×÷Õß£ºÕýµãÔ­×Ó @ALIENTEK
+//ALIENTEK ???STM32F407??? ??55
+//LWIP????????-?????
+//????:www.openedv.com
+//????:http://eboard.taobao.com  
+//?????????????  
+//??:???? @ALIENTEK
 
-/*ALIENTEKÎªLWIPÑ§Ï°×¨ÃÅ±àÐ´ÊÖ²á¡¶ALIENTEK STM32F4 LWIPÊ¹ÓÃ½Ì³Ì.pdf¡·£¬ÏêÏ¸ËµÃ÷Çë²Î¿¼ÊÖ²á¡£*/
+/*ALIENTEK?LWIP????????«ALIENTEK STM32F4 LWIP????.pdf»,??????????*/
 
-extern void Adc_Temperate_Init(void);	//ÉùÃ÷ÄÚ²¿ÎÂ¶È´«¸ÐÆ÷³õÊ¼»¯º¯Êý
-//¼ÓÔØUI
+extern void Adc_Temperate_Init(void);	//??????????????
+//??UI
 //mode:
-//bit0:0,²»¼ÓÔØ;1,¼ÓÔØÇ°°ë²¿·ÖUI
-//bit1:0,²»¼ÓÔØ;1,¼ÓÔØºó°ë²¿·ÖUI
+//bit0:0,???;1,??????UI
+//bit1:0,???;1,??????UI
 void lwip_test_ui(u8 mode)
 {
 	u8 speed;
 	u8 buf[30]; 
-	POINT_COLOR=RED;
+	//POINT_COLOR=RED;
 	if(mode&1<<0)
 	{
-		LCD_Fill(30,30,lcddev.width,110,WHITE);	//Çå³ýÏÔÊ¾
-		LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
-		LCD_ShowString(30,50,200,16,16,"Ethernet lwIP Test");
-		LCD_ShowString(30,70,200,16,16,"ATOM@ALIENTEK");
-		LCD_ShowString(30,90,200,16,16,"2014/8/15"); 	
+//		LCD_Fill(30,30,lcddev.width,110,WHITE);	//????
+//		LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
+//		LCD_ShowString(30,50,200,16,16,"Ethernet lwIP Test");
+//		LCD_ShowString(30,70,200,16,16,"ATOM@ALIENTEK");
+//		LCD_ShowString(30,90,200,16,16,"2014/8/15"); 	
 	}
 	if(mode&1<<1)
 	{
-		LCD_Fill(30,110,lcddev.width,lcddev.height,WHITE);	//Çå³ýÏÔÊ¾
-		LCD_ShowString(30,110,200,16,16,"lwIP Init Successed");
-		if(lwipdev.dhcpstatus==2)sprintf((char*)buf,"DHCP IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//´òÓ¡¶¯Ì¬IPµØÖ·
-		else sprintf((char*)buf,"Static IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//´òÓ¡¾²Ì¬IPµØÖ·
-		LCD_ShowString(30,130,210,16,16,buf); 
-		speed=LAN8720_Get_Speed();//µÃµ½ÍøËÙ
-		if(speed&1<<1)LCD_ShowString(30,150,200,16,16,"Ethernet Speed:100M");
-		else LCD_ShowString(30,150,200,16,16,"Ethernet Speed:10M");
-		LCD_ShowString(30,170,200,16,16,"KEY0:TCP Server Test");
-		LCD_ShowString(30,190,200,16,16,"KEY1:TCP Client Test");
-		LCD_ShowString(30,210,200,16,16,"KEY2:UDP Test");
+//		LCD_Fill(30,110,lcddev.width,lcddev.height,WHITE);	//????
+//		LCD_ShowString(30,110,200,16,16,"lwIP Init Successed");
+		if(lwipdev.dhcpstatus==2)sprintf((char*)buf,"DHCP IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//????IP??
+		else sprintf((char*)buf,"Static IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//????IP??
+//		LCD_ShowString(30,130,210,16,16,buf); 
+		speed=LAN8720_Get_Speed();//????
+//		if(speed&1<<1)LCD_ShowString(30,150,200,16,16,"Ethernet Speed:100M");
+//		else LCD_ShowString(30,150,200,16,16,"Ethernet Speed:10M");
+//		LCD_ShowString(30,170,200,16,16,"KEY0:TCP Server Test");
+//		LCD_ShowString(30,190,200,16,16,"KEY1:TCP Client Test");
+//		LCD_ShowString(30,210,200,16,16,"KEY2:UDP Test");
 	}
 }
 
@@ -71,73 +71,62 @@ int main(void)
 {
 	u8 t;
 	u8 key;
-	delay_init(168);       	//ÑÓÊ±³õÊ¼»¯
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//ÉèÖÃÏµÍ³ÖÐ¶ÏÓÅÏÈ¼¶·Ö×é2
-	uart_init(115200);   	//´®¿Ú²¨ÌØÂÊÉèÖÃ
-	usmart_dev.init(84); 	//³õÊ¼»¯USMART
-	LED_Init();  			//LED³õÊ¼»¯
-	KEY_Init();  			//°´¼ü³õÊ¼»¯
-	LCD_Init(); 			//LCD³õÊ¼»¯
-	FSMC_SRAM_Init();		//³õÊ¼»¯Íâ²¿SRAM  
-	BEEP_Init();			//·äÃùÆ÷³õÊ¼»¯
-	My_RTC_Init();  		//RTC³õÊ¼»¯
-	Adc_Init();  			//ADC³õÊ¼»¯ 
-	Adc_Temperate_Init(); 	//ÄÚ²¿ÎÂ¶È´«¸ÐÆ÷³õÊ¼»¯
-	TIM3_Int_Init(999,839); //100khzµÄÆµÂÊ,¼ÆÊý1000Îª10ms
-	mymem_init(SRAMIN);		//³õÊ¼»¯ÄÚ²¿ÄÚ´æ³Ø
-	mymem_init(SRAMEX);		//³õÊ¼»¯Íâ²¿ÄÚ´æ³Ø
-	mymem_init(SRAMCCM);	//³õÊ¼»¯CCMÄÚ´æ³Ø
-	POINT_COLOR = RED; 		//ºìÉ«×ÖÌå
-	lwip_test_ui(1);		//¼ÓÔØÇ°°ë²¿·ÖUI
+	delay_init(168);       	//?????
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//???????????2
+	uart_init(115200);   	//???????
+	usmart_dev.init(84); 	//???USMART
+	LED_Init();  			//LED???
+	KEY_Init();  			//?????
+//	LCD_Init(); 			//LCD???
+	FSMC_SRAM_Init();		//?????SRAM  
+	BEEP_Init();			//??????
+	My_RTC_Init();  		//RTC???
+	Adc_Init();  			//ADC??? 
+	Adc_Temperate_Init(); 	//??????????
+	TIM3_Int_Init(999,839); //100khz???,??1000?10ms
+	mymem_init(SRAMIN);		//????????
+	mymem_init(SRAMEX);		//????????
+	mymem_init(SRAMCCM);	//???CCM???
+//	POINT_COLOR = RED; 		//????
+	lwip_test_ui(1);		//??????UI
 	
-	//ÏÈ³õÊ¼»¯lwIP(°üÀ¨LAN8720³õÊ¼»¯),´ËÊ±±ØÐë²åÉÏÍøÏß,·ñÔò³õÊ¼»¯»áÊ§°Ü!! 
-	LCD_ShowString(30,110,200,16,16,"lwIP Initing...");
+	//????lwIP(??LAN8720???),????????,????????!! 
+//	LCD_ShowString(30,110,200,16,16,"lwIP Initing...");
 	while(lwip_comm_init()!=0)
 	{
-		LCD_ShowString(30,110,200,16,16,"lwIP Init failed!");
+//		LCD_ShowString(30,110,200,16,16,"lwIP Init failed!");
 		delay_ms(1200);
-		LCD_Fill(30,110,230,110+16,WHITE);//Çå³ýÏÔÊ¾
-		LCD_ShowString(30,110,200,16,16,"Retrying...");  
+//		LCD_Fill(30,110,230,110+16,WHITE);//????
+//		LCD_ShowString(30,110,200,16,16,"Retrying...");  
 	}
-	LCD_ShowString(30,110,200,16,16,"lwIP Init Successed");
-	//µÈ´ýDHCP»ñÈ¡ 
- 	LCD_ShowString(30,130,200,16,16,"DHCP IP configing...");
-	while((lwipdev.dhcpstatus!=2)&&(lwipdev.dhcpstatus!=0XFF))//µÈ´ýDHCP»ñÈ¡³É¹¦/³¬Ê±Òç³ö
+//	LCD_ShowString(30,110,200,16,16,"lwIP Init Successed");
+//	//??DHCP?? 
+// 	LCD_ShowString(30,130,200,16,16,"DHCP IP configing...");
+	while((lwipdev.dhcpstatus!=2)&&(lwipdev.dhcpstatus!=0XFF))//??DHCP????/????
 	{
 		lwip_periodic_handle();
 	}
-	lwip_test_ui(2);//¼ÓÔØºó°ë²¿·ÖUI 
-	httpd_init();	//HTTP³õÊ¼»¯(Ä¬ÈÏ¿ªÆôwebsever)
+	lwip_test_ui(2);//??????UI 
+	httpd_init();	//HTTP???(????websever)
 	while(1)
 	{
-		key=KEY_Scan(0);
-		switch(key)
-		{
-			case KEY0_PRES://TCP ServerÄ£Ê½
-				tcp_server_test();
-				lwip_test_ui(3);//ÖØÐÂ¼ÓÔØUI
-				break;
-			case KEY1_PRES://TCP ClientÄ£Ê½
-				tcp_client_test();
-				lwip_test_ui(3);//ÖØÐÂ¼ÓÔØUI
-				break; 
-			case KEY2_PRES://UDPÄ£Ê½
+
 				udp_demo_test();
-				lwip_test_ui(3);//ÖØÐÂ¼ÓÔØUI
-				break; 
+//				lwip_test_ui(3);//????UI
+
 		}
 		lwip_periodic_handle();
 		delay_ms(2);
 		t++;
-		if(t==100)LCD_ShowString(30,230,200,16,16,"Please choose a mode!");
+//		if(t==100)LCD_ShowString(30,230,200,16,16,"Please choose a mode!");
 		if(t==200)
 		{ 
 			t=0;
-			LCD_Fill(30,230,230,230+16,WHITE);//Çå³ýÏÔÊ¾
+//			LCD_Fill(30,230,230,230+16,WHITE);//????
 			LED0=!LED0;
 		} 
 	}
-}
+
 
 
 

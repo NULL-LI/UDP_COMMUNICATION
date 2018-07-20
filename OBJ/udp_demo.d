@@ -62,7 +62,5 @@
 ..\obj\udp_demo.o: ..\SYSTEM\usart\usart.h
 ..\obj\udp_demo.o: ..\HARDWARE\LED\led.h
 ..\obj\udp_demo.o: ..\HARDWARE\KEY\key.h
-..\obj\udp_demo.o: ..\HARDWARE\LCD\lcd.h
-..\obj\udp_demo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\udp_demo.o: ..\MALLOC\malloc.h
 ..\obj\udp_demo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

@@ -15,7 +15,7 @@
         <TargetCommonOption>
           <Device>STM32F407ZG</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.11.0</PackID>
+          <PackID>Keil.STM32F4xx_DFP.2.13.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) IRAM2(0x10000000,0x10000) CPUTYPE("Cortex-M4") FPU2 CLOCK(168000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -415,11 +415,6 @@
               <FilePath>..\HARDWARE\TIMER\timer.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\LCD\lcd.c</FilePath>
-            </File>
-            <File>
               <FileName>LAN8720.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\ETHERNET\LAN8720.c</FilePath>
@@ -583,16 +578,6 @@
               <FileName>lwip_comm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LWIP\lwip_app\lwip_comm\lwip_comm.c</FilePath>
-            </File>
-            <File>
-              <FileName>tcp_client_demo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LWIP\lwip_app\tcp_client_demo\tcp_client_demo.c</FilePath>
-            </File>
-            <File>
-              <FileName>tcp_server_demo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LWIP\lwip_app\tcp_server_demo\tcp_server_demo.c</FilePath>
             </File>
             <File>
               <FileName>udp_demo.c</FileName>
