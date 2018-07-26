@@ -167,7 +167,11 @@ void udp_demo_recv(void *arg,struct udp_pcb *upcb,struct pbuf *p,struct ip_addr 
 		udp_demo_flag|=1<<6;	//标记接收到数据了
 		
 		udp_demo_flag&=~(1<<6);
-		printf("Data %s\n",udp_demo_recvbuf);//显示接收到的数据		
+		
+		memcpy(udp_demo_recvbuf,udp_frame_recv_ptr_u8,UDP_DATA_LENGTH);
+//		printf("Data %s\n",udp_demo_recvbuf);//显示接收到的数据	
+		
+		udp_frame_send_ptr->position_send_udp=udp_frame_recv_ptr->position_recv_udp+1.0f;		
 		
 		pbuf_free(p);//释放内存
 	}else
@@ -183,6 +187,18 @@ void udp_demo_senddata(struct udp_pcb *upcb)
 	if(ptr)
 	{
 		ptr->payload=(void*)tcp_demo_sendbuf; 
+		udp_send(upcb,ptr);	//udp发送数据 
+		pbuf_free(ptr);//释放内存
+	} 
+} 
+
+void udp_send_joint_data(struct udp_pcb *upcb,char* buf)
+{
+	struct pbuf *ptr;
+	ptr=pbuf_alloc(PBUF_TRANSPORT,UDP_DATA_LENGTH,PBUF_POOL); //申请内存
+	if(ptr)
+	{
+		ptr->payload=(void*)buf; 
 		udp_send(upcb,ptr);	//udp发送数据 
 		pbuf_free(ptr);//释放内存
 	} 

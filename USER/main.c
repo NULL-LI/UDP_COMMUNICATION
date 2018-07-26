@@ -28,6 +28,15 @@
 
 // extern void Adc_Temperate_Init(void);	//??????????????
 
+
+	udp_data udp_frame_send ;
+	udp_data udp_frame_recv ;
+	udp_data* udp_frame_send_ptr ;
+	udp_data* udp_frame_recv_ptr ;
+	u8* udp_frame_send_ptr_u8 ;
+	u8* udp_frame_recv_ptr_u8 ;
+
+
 void lwip_test_ui(u8 mode) {
   u8 speed;
   u8 buf[30];
@@ -60,7 +69,7 @@ void lwip_test_ui(u8 mode) {
 }
 
 int main(void) {
-  u8 t;
+  int t;
   u8 key;
   delay_init(168);                                 //?????
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  //???????????2
@@ -79,6 +88,12 @@ int main(void) {
   mymem_init(SRAMEX);       //????????
   mymem_init(SRAMCCM);      //???CCM???
   //	POINT_COLOR = RED; 		//????
+	
+	udp_frame_send_ptr=&udp_frame_send;
+	udp_frame_recv_ptr=&udp_frame_recv;
+	udp_frame_send_ptr_u8=(u8*)udp_frame_send_ptr;
+	udp_frame_recv_ptr_u8=(u8*)udp_frame_recv_ptr;
+	
   lwip_test_ui(1);  //??????UI
 
   while (lwip_comm_init() != 0) {
@@ -114,6 +129,12 @@ int main(void) {
   printf("%s\n", tbuf);
   printf("STATUS:Disconnected\n");
   udppcb = udp_new();
+	
+	udp_frame_send.stm32_ip_udp[0]=lwipdev.ip[0];
+	udp_frame_send.stm32_ip_udp[1]=lwipdev.ip[1];
+	udp_frame_send.stm32_ip_udp[2]=lwipdev.ip[2];
+	udp_frame_send.stm32_ip_udp[3]=lwipdev.ip[3];		
+	
   if (udppcb)  //创建成功
   {
     IP4_ADDR(&rmtipaddr, lwipdev.remoteip[0], lwipdev.remoteip[1],
@@ -140,7 +161,8 @@ int main(void) {
     lwip_periodic_handle();
     delay_ms(1);
     t++;
-    if (t == 200) {
+    if (t == 1000) {
+			udp_send_joint_data(udppcb,(char*)udp_frame_send_ptr_u8);
       t = 0;
       LED0 = !LED0;
     }

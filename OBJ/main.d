@@ -62,9 +62,10 @@
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/pbuf.h
 ..\obj\main.o: ..\MALLOC\malloc.h
 ..\obj\main.o: ..\LWIP\lwip_app\udp_demo\udp_demo.h
-..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/udp.h
-..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/tcp.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/mem.h
+..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/icmp.h
+..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/udp.h
+..\obj\main.o: ..\HARDWARE\ETHERNET\udp_data_struct.h
 ..\obj\main.o: ..\HARDWARE\ETHERNET\udp_data_struct.h
