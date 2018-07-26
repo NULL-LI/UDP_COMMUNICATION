@@ -97,13 +97,17 @@ void udp_demo_test(void)
 	tbuf=mymalloc(SRAMIN,200);	//申请内存
 	if(tbuf==NULL)return ;		//内存申请失败了,直接退出
 	sprintf((char*)tbuf,"Local IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//服务器IP
-//	LCD_ShowString(30,130,210,16,16,tbuf);  
+		printf("%s\n",tbuf);  
+		lwipdev.remoteip[0]=192;
+		lwipdev.remoteip[1]=168;
+		lwipdev.remoteip[2]=1;
+		lwipdev.remoteip[3]=29;
 	sprintf((char*)tbuf,"Remote IP:%d.%d.%d.%d",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2],lwipdev.remoteip[3]);//远端IP
-//	LCD_ShowString(30,150,210,16,16,tbuf);  
+		printf("%s\n",tbuf);  
 	sprintf((char*)tbuf,"Remote Port:%d",UDP_DEMO_PORT);//客户端端口号
-//	LCD_ShowString(30,170,210,16,16,tbuf);
+		printf("%s\n",tbuf);
 //	POINT_COLOR=BLUE;
-//	LCD_ShowString(30,190,210,16,16,"STATUS:Disconnected"); 
+		printf("STATUS:Disconnected\n"); 
 	udppcb=udp_new();
 	if(udppcb)//创建成功
 	{ 
@@ -115,6 +119,7 @@ void udp_demo_test(void)
 			if(err==ERR_OK)	//绑定完成
 			{
 				udp_recv(udppcb,udp_demo_recv,NULL);//注册接收回调函数 
+				printf("STATUS:Connected\n");
 //				LCD_ShowString(30,190,210,16,16,"STATUS:Connected   ");//标记连接上了(UDP是非可靠连接,这里仅仅表示本地UDP已经准备好)
 //				POINT_COLOR=RED;
 //				LCD_ShowString(30,210,lcddev.width-30,lcddev.height-190,16,"Receive Data:");//提示消息		
@@ -126,10 +131,11 @@ void udp_demo_test(void)
 	{
 		key=KEY_Scan(0);
 		if(key==WKUP_PRES)break;
-		if(key==KEY0_PRES)//KEY0按下了,发送数据
-		{
+//		if(key==KEY0_PRES)//KEY0按下了,发送数据
+//		{
 			udp_demo_senddata(udppcb);
-		}
+		printf("send\n");
+//		}
 		if(udp_demo_flag&1<<6)//是否收到数据?
 		{
 //			LCD_Fill(30,230,lcddev.width-1,lcddev.height-1,WHITE);//清上一次数据
@@ -137,7 +143,7 @@ void udp_demo_test(void)
 			udp_demo_flag&=~(1<<6);//标记数据已经被处理了.
 		} 
 		lwip_periodic_handle();
-		delay_ms(2);
+		delay_ms(1000);
 		t++;
 		if(t==200)
 		{

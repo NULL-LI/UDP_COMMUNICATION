@@ -51,7 +51,6 @@
 ..\obj\main.o: ..\HARDWARE\RTC\rtc.h
 ..\obj\main.o: ..\HARDWARE\BEEP\beep.h
 ..\obj\main.o: ..\HARDWARE\ADC\adc.h
-..\obj\main.o: ..\HARDWARE\InterTemperate\temperature.h
 ..\obj\main.o: ..\MALLOC\malloc.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/netif.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/opt.h
