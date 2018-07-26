@@ -39,7 +39,6 @@
 ..\obj\main.o: ..\SYSTEM\usart\usart.h
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\LED\led.h
-..\obj\main.o: ..\HARDWARE\KEY\key.h
 ..\obj\main.o: ..\LWIP\lwip_app\lwip_comm\lwip_comm.h
 ..\obj\main.o: ..\HARDWARE\ETHERNET\lan8720.h
 ..\obj\main.o: ..\FWLIB\STM32F4x7_ETH_Driver\inc\stm32f4x7_eth.h
@@ -48,8 +47,6 @@
 ..\obj\main.o: ..\USMART\usmart_str.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\SRAM\sram.h
-..\obj\main.o: ..\HARDWARE\RTC\rtc.h
-..\obj\main.o: ..\HARDWARE\BEEP\beep.h
 ..\obj\main.o: ..\HARDWARE\ADC\adc.h
 ..\obj\main.o: ..\MALLOC\malloc.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/netif.h

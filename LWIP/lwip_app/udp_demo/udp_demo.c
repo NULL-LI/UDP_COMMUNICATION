@@ -42,35 +42,34 @@ void udp_demo_set_remoteip(void)
 	u8 *tbuf;
 	u16 xoff;
 	u8 key;
-//	LCD_Clear(WHITE);
-//	POINT_COLOR=RED;
-//	LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
-//	LCD_ShowString(30,50,200,16,16,"UDP Test");
-//	LCD_ShowString(30,70,200,16,16,"Remote IP Set");  
-//	LCD_ShowString(30,90,200,16,16,"KEY0:+  KEY2:-");  
-//	LCD_ShowString(30,110,200,16,16,"KEY_UP:OK");  
+
 	tbuf=mymalloc(SRAMIN,100);	//申请内存
 	if(tbuf==NULL)return;
 	//前三个IP保持和DHCP得到的IP一致
 	lwipdev.remoteip[0]=lwipdev.ip[0];
 	lwipdev.remoteip[1]=lwipdev.ip[1];
 	lwipdev.remoteip[2]=lwipdev.ip[2]; 
-	sprintf((char*)tbuf,"Remote IP:%d.%d.%d.",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2]);//远端IP
+//	sprintf((char*)tbuf,"Remote IP:%d.%d.%d.",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2]);//远端IP
+	
 //	LCD_ShowString(30,150,210,16,16,tbuf); 
 //	POINT_COLOR=BLUE;
-	xoff=strlen((char*)tbuf)*8+30;
+//	xoff=strlen((char*)tbuf)*8+30;
 //	LCD_ShowxNum(xoff,150,lwipdev.remoteip[3],3,16,0); 
-	while(1)
-	{
-		key=KEY_Scan(0);
-		if(key==WKUP_PRES)break;
-		else if(key)
-		{
-			if(key==KEY0_PRES)lwipdev.remoteip[3]++;//IP增加
-			if(key==KEY2_PRES)lwipdev.remoteip[3]--;//IP减少
-//			LCD_ShowxNum(xoff,150,lwipdev.remoteip[3],3,16,0X80);//显示新IP
-		}
-	}
+//	while(1)
+//	{
+//		key=KEY_Scan(0);
+//		if(key==WKUP_PRES)break;
+//		else if(key)
+//		{
+//			if(key==KEY0_PRES)lwipdev.remoteip[3]++;//IP增加
+//			if(key==KEY2_PRES)lwipdev.remoteip[3]--;//IP减少
+////			LCD_ShowxNum(xoff,150,lwipdev.remoteip[3],3,16,0X80);//显示新IP
+//		}
+//	}
+lwipdev.remoteip[0]=192;
+		lwipdev.remoteip[1]=168;
+		lwipdev.remoteip[2]=1;
+		lwipdev.remoteip[3]=29;
 	myfree(SRAMIN,tbuf); 
 } 
 
@@ -87,21 +86,12 @@ void udp_demo_test(void)
 	u8 t=0; 
  	
 	udp_demo_set_remoteip();//先选择IP
-//	LCD_Clear(WHITE);	//清屏
-//	POINT_COLOR=RED; 	//红色字体
-//	LCD_ShowString(30,30,200,16,16,"Explorer STM32F4");
-//	LCD_ShowString(30,50,200,16,16,"UDP Test");
-//	LCD_ShowString(30,70,200,16,16,"ATOM@ALIENTEK");  
-//	LCD_ShowString(30,90,200,16,16,"KEY0:Send data");  
-//	LCD_ShowString(30,110,200,16,16,"KEY_UP:Quit");  
+
 	tbuf=mymalloc(SRAMIN,200);	//申请内存
 	if(tbuf==NULL)return ;		//内存申请失败了,直接退出
 	sprintf((char*)tbuf,"Local IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//服务器IP
 		printf("%s\n",tbuf);  
-		lwipdev.remoteip[0]=192;
-		lwipdev.remoteip[1]=168;
-		lwipdev.remoteip[2]=1;
-		lwipdev.remoteip[3]=29;
+		
 	sprintf((char*)tbuf,"Remote IP:%d.%d.%d.%d",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2],lwipdev.remoteip[3]);//远端IP
 		printf("%s\n",tbuf);  
 	sprintf((char*)tbuf,"Remote Port:%d",UDP_DEMO_PORT);//客户端端口号
@@ -129,8 +119,8 @@ void udp_demo_test(void)
 	}else res=1;
 	while(res==0)
 	{
-		key=KEY_Scan(0);
-		if(key==WKUP_PRES)break;
+//		key=KEY_Scan(0);
+//		if(key==WKUP_PRES)break;
 //		if(key==KEY0_PRES)//KEY0按下了,发送数据
 //		{
 			udp_demo_senddata(udppcb);
@@ -138,6 +128,7 @@ void udp_demo_test(void)
 //		}
 		if(udp_demo_flag&1<<6)//是否收到数据?
 		{
+			printf("Received\n");
 //			LCD_Fill(30,230,lcddev.width-1,lcddev.height-1,WHITE);//清上一次数据
 //			LCD_ShowString(30,230,lcddev.width-30,lcddev.height-230,16,udp_demo_recvbuf);//显示接收到的数据			
 			udp_demo_flag&=~(1<<6);//标记数据已经被处理了.
@@ -178,6 +169,7 @@ void udp_demo_recv(void *arg,struct udp_pcb *upcb,struct pbuf *p,struct ip_addr 
 		lwipdev.remoteip[1]=(upcb->remote_ip.addr>>8)&0xff; //IADDR3
 		lwipdev.remoteip[2]=(upcb->remote_ip.addr>>16)&0xff;//IADDR2
 		lwipdev.remoteip[3]=(upcb->remote_ip.addr>>24)&0xff;//IADDR1 
+		printf("remoteip %d %d %d %d \n",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2],lwipdev.remoteip[3]);
 		udp_demo_flag|=1<<6;	//标记接收到数据了
 		pbuf_free(p);//释放内存
 	}else

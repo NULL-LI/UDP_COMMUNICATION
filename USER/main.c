@@ -2,15 +2,15 @@
 #include "delay.h"
 #include "usart.h"
 #include "led.h"
-#include "key.h"
+//#include "key.h"
 #include "lwip_comm.h"
 #include "LAN8720.h"
 #include "usmart.h"
 #include "timer.h"
 //#include "lcd.h"
 #include "sram.h"
-#include "rtc.h"
-#include "beep.h"
+//#include "rtc.h"
+//#include "beep.h"
 #include "adc.h"
 //#include "temperature.h"
 #include "sram.h"
@@ -68,8 +68,8 @@ int main(void)
 //	KEY_Init();  			//?????
 //	LCD_Init(); 			//LCD???
 	FSMC_SRAM_Init();		//?????SRAM  
-	BEEP_Init();			//??????
-	My_RTC_Init();  		//RTC???
+//	BEEP_Init();			//??????
+//	My_RTC_Init();  		//RTC???
 	Adc_Init();  			//ADC??? 
 //	Adc_Temperate_Init(); 	//??????????
 	TIM3_Int_Init(999,839); //100khz???,??1000?10ms
@@ -83,18 +83,14 @@ int main(void)
 //	LCD_ShowString(30,110,200,16,16,"lwIP Initing...");
 	while(lwip_comm_init()!=0)
 	{
-//		LCD_ShowString(30,110,200,16,16,"lwIP Init failed!");
 		delay_ms(1200);
-//		LCD_Fill(30,110,230,110+16,WHITE);//????
-//		LCD_ShowString(30,110,200,16,16,"Retrying...");  
 	}
-//	LCD_ShowString(30,110,200,16,16,"lwIP Init Successed");
-//	//??DHCP?? 
-// 	LCD_ShowString(30,130,200,16,16,"DHCP IP configing...");
-	while((lwipdev.dhcpstatus!=2)&&(lwipdev.dhcpstatus!=0XFF))//??DHCP????/????
-	{
-		lwip_periodic_handle();
-	}
+
+//	while((lwipdev.dhcpstatus!=2)&&(lwipdev.dhcpstatus!=0XFF))//??DHCP????/????
+//	{
+//		lwip_periodic_handle();
+//	}
+	
 	lwip_test_ui(2);//??????UI 
 //	httpd_init();	//HTTP???(????websever)
 	while(1)
@@ -113,7 +109,6 @@ int main(void)
 		if(t==200)
 		{ 
 			t=0;
-//			LCD_Fill(30,230,230,230+16,WHITE);//????
 			LED0=!LED0;
 		} 
 	}

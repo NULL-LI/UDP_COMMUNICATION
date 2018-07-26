@@ -55,7 +55,6 @@
 ..\obj\lwip_comm.o: ..\LWIP\lwip-1.4.1\src\include\lwip/netif.h
 ..\obj\lwip_comm.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip.h
 ..\obj\lwip_comm.o: ..\LWIP\lwip-1.4.1\src\include\lwip/dhcp.h
-..\obj\lwip_comm.o: ..\LWIP\lwip-1.4.1\src\include\lwip/udp.h
 ..\obj\lwip_comm.o: ..\LWIP\lwip-1.4.1\src\include\lwip/mem.h
 ..\obj\lwip_comm.o: ..\LWIP\lwip-1.4.1\src\include\lwip/memp.h
 ..\obj\lwip_comm.o: ..\LWIP\lwip-1.4.1\src\include\lwip/memp_std.h
