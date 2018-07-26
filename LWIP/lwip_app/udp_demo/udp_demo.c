@@ -119,18 +119,12 @@ void udp_demo_test(void)
 	}else res=1;
 	while(res==0)
 	{
-//		key=KEY_Scan(0);
-//		if(key==WKUP_PRES)break;
-//		if(key==KEY0_PRES)//KEY0按下了,发送数据
-//		{
-			udp_demo_senddata(udppcb);
+
+		udp_demo_senddata(udppcb);
 		printf("send\n");
-//		}
 		if(udp_demo_flag&1<<6)//是否收到数据?
 		{
-			printf("Received\n");
-//			LCD_Fill(30,230,lcddev.width-1,lcddev.height-1,WHITE);//清上一次数据
-//			LCD_ShowString(30,230,lcddev.width-30,lcddev.height-230,16,udp_demo_recvbuf);//显示接收到的数据			
+			printf("Received\n");	
 			udp_demo_flag&=~(1<<6);//标记数据已经被处理了.
 		} 
 		lwip_periodic_handle();
@@ -171,6 +165,10 @@ void udp_demo_recv(void *arg,struct udp_pcb *upcb,struct pbuf *p,struct ip_addr 
 		lwipdev.remoteip[3]=(upcb->remote_ip.addr>>24)&0xff;//IADDR1 
 		printf("remoteip %d %d %d %d \n",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2],lwipdev.remoteip[3]);
 		udp_demo_flag|=1<<6;	//标记接收到数据了
+		
+		udp_demo_flag&=~(1<<6);
+		printf("Data %s\n",udp_demo_recvbuf);//显示接收到的数据		
+		
 		pbuf_free(p);//释放内存
 	}else
 	{

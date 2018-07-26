@@ -30,5 +30,8 @@ void udp_demo_recv(void *arg,struct udp_pcb *upcb,struct pbuf *p,struct ip_addr 
 void udp_demo_senddata(struct udp_pcb *upcb);
 void udp_demo_connection_close(struct udp_pcb *upcb);
 
+
+void	udp_demo_set_remoteip();//œ»—°‘ÒIP
+
 #endif
 
