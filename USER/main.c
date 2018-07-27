@@ -33,8 +33,8 @@
 	udp_data udp_frame_recv ;
 	udp_data* udp_frame_send_ptr ;
 	udp_data* udp_frame_recv_ptr ;
-	u8* udp_frame_send_ptr_u8 ;
-	u8* udp_frame_recv_ptr_u8 ;
+	char* udp_frame_send_ptr_char ;
+	char* udp_frame_recv_ptr_char ;
 
 
 void lwip_test_ui(u8 mode) {
@@ -70,7 +70,7 @@ void lwip_test_ui(u8 mode) {
 
 int main(void) {
   int t;
-  u8 key;
+//  u8 key;
   delay_init(168);                                 //?????
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  //???????????2
   uart_init(115200);                               //???????
@@ -91,8 +91,11 @@ int main(void) {
 	
 	udp_frame_send_ptr=&udp_frame_send;
 	udp_frame_recv_ptr=&udp_frame_recv;
-	udp_frame_send_ptr_u8=(u8*)udp_frame_send_ptr;
-	udp_frame_recv_ptr_u8=(u8*)udp_frame_recv_ptr;
+	udp_frame_send_ptr_char=(char*)udp_frame_send_ptr;
+	udp_frame_recv_ptr_char=(char*)udp_frame_recv_ptr;
+		
+		udp_frame_send_ptr->check_udp_front=UDP_CHECK_FRONT;
+		udp_frame_send_ptr->check_udp_back=UDP_CHECK_BACK;
 	
   lwip_test_ui(1);  //??????UI
 
@@ -162,7 +165,7 @@ int main(void) {
     delay_ms(1);
     t++;
     if (t == 1000) {
-			udp_send_joint_data(udppcb,(char*)udp_frame_send_ptr_u8);
+			udp_send_joint_data(udppcb,udp_frame_send_ptr_char);
       t = 0;
       LED0 = !LED0;
     }

@@ -41,7 +41,7 @@ void udp_demo_set_remoteip(void)
 {
 	u8 *tbuf;
 	u16 xoff;
-	u8 key;
+//	u8 key;
 
 	tbuf=mymalloc(SRAMIN,100);	//申请内存
 	if(tbuf==NULL)return;
@@ -81,7 +81,7 @@ void udp_demo_test(void)
 	struct ip_addr rmtipaddr;  	//远端ip地址
  	
 	u8 *tbuf;
- 	u8 key;
+// 	u8 key;
 	u8 res=0;		
 	u8 t=0; 
  	
@@ -168,10 +168,10 @@ void udp_demo_recv(void *arg,struct udp_pcb *upcb,struct pbuf *p,struct ip_addr 
 		
 		udp_demo_flag&=~(1<<6);
 		
-		memcpy(udp_demo_recvbuf,udp_frame_recv_ptr_u8,UDP_DATA_LENGTH);
+		memcpy(udp_frame_recv_ptr_char,udp_demo_recvbuf,UDP_DATA_LENGTH);
 //		printf("Data %s\n",udp_demo_recvbuf);//显示接收到的数据	
-		
-		udp_frame_send_ptr->position_send_udp=udp_frame_recv_ptr->position_recv_udp+1.0f;		
+		udp_frame_send_ptr->position_DownToUp_udp=udp_frame_recv_ptr->position_UpToDown_udp+0.0f;		
+		printf("udp_frame_recv_ptr->position_UpToDown_udp : %f\n",udp_frame_recv_ptr->position_UpToDown_udp);
 		
 		pbuf_free(p);//释放内存
 	}else

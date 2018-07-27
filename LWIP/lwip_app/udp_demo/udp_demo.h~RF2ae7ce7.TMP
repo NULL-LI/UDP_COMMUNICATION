@@ -43,7 +43,7 @@ void udp_demo_senddata(struct udp_pcb *upcb);
 void udp_demo_connection_close(struct udp_pcb *upcb);
 
 
-void  udp_demo_set_remoteip(void);//先选择IP
+void  udp_demo_set_remoteip();//先选择IP
 void udp_send_joint_data(struct udp_pcb *upcb,char* buf);
 #endif
 
